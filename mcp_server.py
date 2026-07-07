@@ -19,7 +19,7 @@ docs = {
 )
 def read_doc_contents(
     doc_id: str = Field(description="The ID of the document to read"),
-):
+) -> str:
     if doc_id not in docs:
         raise ValueError(f"Document {doc_id} not found")
 
@@ -33,7 +33,7 @@ def edit_document(
     doc_id: str = Field(description="The ID of the document to edit"),
     old_string: str = Field(description="The string to replace, Must match exactly including the white space and capitalization"),
     new_string: str = Field(description="The new string to replace the old string with")
-):
+) -> str:
     if doc_id not in docs:
         raise ValueError(f"Document {doc_id} not found")
 
