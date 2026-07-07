@@ -29,8 +29,9 @@ async def main():
     server_scripts = sys.argv[1:]
     clients = {}
 
+    uv_path = os.getenv("UV_PATH", "uv")
     command, args = (
-        ("uv", ["run", "mcp_server.py"])
+        (uv_path, ["run", "mcp_server.py"])
         if os.getenv("USE_UV", "0") == "1"
         else ("python", ["mcp_server.py"])
     )
@@ -44,7 +45,7 @@ async def main():
         for i, server_script in enumerate(server_scripts):
             client_id = f"client_{i}_{server_script}"
             client = await stack.enter_async_context(
-                MCPClient(command="uv", args=["run", server_script])
+                MCPClient(command=uv_path, args=["run", server_script])
             )
             clients[client_id] = client
 
